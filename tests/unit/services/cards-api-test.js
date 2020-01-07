@@ -1,6 +1,7 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
+import Card from 'brigit-blackjack/models/card';
 
 module('Unit | Service | cards-api', function(hooks) {
   setupTest(hooks);
@@ -21,15 +22,29 @@ module('Unit | Service | cards-api', function(hooks) {
   });
 
   test('it can correctly draw cards', async function(assert) {
-    const FAKE_CARD_DATA = { data: 'FAKE-DATA' };
-
     this.server.get('https://deckofcardsapi.com/api/deck/:deckId/draw/', (db, request) => {
       assert.equal(request.params.deckId, 'FAKE-DECK-ID', 'requests the correct deck');
       assert.equal(request.queryParams.count, 17, 'requests the correct number of cards');
-      return { cards: FAKE_CARD_DATA };
+      return {
+        cards: [
+          {
+            image: 'https://deckofcardsapi.com/static/img/8C.png',
+            value: '8',
+            suit: 'CLUBS',
+            code: '8C'
+          },
+          {
+            image: 'https://deckofcardsapi.com/static/img/AS.png',
+            value: 'ACE',
+            suit: 'SPADES',
+            code: 'AS'
+          }
+        ]
+      };
     });
 
     const cards = await this.service.drawCards('FAKE-DECK-ID', 17);
-    assert.deepEqual(cards, FAKE_CARD_DATA, 'returns the correct card data');
+    assert.equal(cards.length, 2, 'returns every card');
+    assert.ok(cards[0] instanceof Card, 'converts api data into Card models');
   });
 });
