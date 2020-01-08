@@ -2,10 +2,7 @@
   House Cards
 </h2>
 {{#if this.blackjack.hasGameEnded}}
-  {{#each this.blackjack.houseHand.cards as |card|}}
-    <img data-test-house-card-image
-         src={{card.imageURL}}>
-  {{/each}}
+  <CardCarousel data-test-house-card-image @cards={{this.blackjack.houseHand.cards}}/>
 {{else}}
   <p data-test-house-card-disclaimer>(Currently Hidden)</p>
 {{/if}}
@@ -15,10 +12,7 @@
 <h2 data-test-player-header>
   Your Cards
 </h2>
-{{#each this.blackjack.playerHand.cards as |card|}}
-  <img data-test-player-card-image
-       src={{card.imageURL}}>
-{{/each}}
+<CardCarousel data-test-player-card-image @cards={{this.blackjack.playerHand.cards}}/>
 
 <hr>
 

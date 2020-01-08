@@ -30,19 +30,12 @@ module('Integration | Component | blackjack-game', function(hooks) {
     assert.dom('[data-test-house-card-disclaimer]').hasText('(Currently Hidden)');
 
     assert.dom('[data-test-player-header]').hasText('Your Cards');
+    assert.dom('[data-test-player-card-image]').exists({ count: 2 });
 
     assert.dom('[data-test-hit-button]').hasText('Hit');
     assert.dom('[data-test-stand-button]').hasText('Stand');
     assert.dom('[data-test-game-results]').doesNotExist();
     assert.dom('[data-test-play-again-button]').doesNotExist();
-  });
-
-  test('it renders all player cards', async function(assert) {
-    assert.dom('[data-test-player-card-image]').exists({ count: 2 });
-
-    const cardsImages = document.querySelectorAll('[data-test-player-card-image]');
-    assert.dom(cardsImages[0]).hasAttribute('src', 'https://fake.com/first');
-    assert.dom(cardsImages[1]).hasAttribute('src', 'https://fake.com/second');
   });
 
   test('it allows the player to hit', async function(assert) {
