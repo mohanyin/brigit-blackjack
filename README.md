@@ -1,7 +1,6 @@
 # brigit-blackjack
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This is Mohan Yin's submission for the Brigit take home project.
 
 ## Prerequisites
 
@@ -14,24 +13,20 @@ You will need the following things properly installed on your computer.
 
 ## Installation
 
-* `git clone <repository-url>` this repository
+* `git clone https://github.com/mohanyin/brigit-blackjack.git` this repository
 * `cd brigit-blackjack`
 * `npm install`
 
 ## Running / Development
 
-* `ember serve`
+* `npm start`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 * Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
 
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
-
 ### Running Tests
 
-* `ember test`
-* `ember test --server`
+* `npm start`
+* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
 
 ### Linting
 
@@ -43,10 +38,6 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 * `ember build` (development)
 * `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
 
 ## Further Reading / Useful Links
 
