@@ -28,7 +28,11 @@ export default class Hand {
     return baseValue;
   }
 
+  // We need to reset the tracked property for changes to the array to update the DOM.
+  // See "Triggering Updates on Complex Objects" in the RFC https://github.com/emberjs/rfcs/blob/master/text/0410-tracked-properties.md
   addCard(card) {
-    this.cards.push(card);
+    const { cards } = this;
+    cards.push(card);
+    this.cards = cards;
   }
 }

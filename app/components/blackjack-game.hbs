@@ -1,0 +1,44 @@
+<h2 data-test-house-header>
+  House Cards
+</h2>
+{{#if this.blackjack.hasGameEnded}}
+  {{#each this.blackjack.houseHand.cards as |card|}}
+    <img data-test-house-card-image
+         src={{card.imageURL}}>
+  {{/each}}
+{{else}}
+  <p data-test-house-card-disclaimer>(Currently Hidden)</p>
+{{/if}}
+
+<hr>
+
+<h2 data-test-player-header>
+  Your Cards
+</h2>
+{{#each this.blackjack.playerHand.cards as |card|}}
+  <img data-test-player-card-image
+       src={{card.imageURL}}>
+{{/each}}
+
+<hr>
+
+{{#unless this.blackjack.hasGameEnded}}
+  <button data-test-hit-button {{on "click" this.hit}}>
+    Hit
+  </button>
+  <button data-test-stand-button {{on "click" this.stand}}>
+    Stand
+  </button>
+{{else}}
+  <h1 data-test-game-results>
+    {{#if this.blackjack.didPlayerWin}}
+      You won!
+    {{else}}
+      You lost :(
+    {{/if}}
+  </h1>
+  <button data-test-play-again-button {{on "click" this.playAgain}}>
+    Play Again
+  </button>
+{{/unless}}
+
