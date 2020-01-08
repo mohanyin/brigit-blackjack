@@ -2,6 +2,7 @@ import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import Card from 'brigit-blackjack/models/card';
+import sinon from 'sinon';
 
 module('Unit | Service | cards-api', function(hooks) {
   setupTest(hooks);
@@ -19,6 +20,16 @@ module('Unit | Service | cards-api', function(hooks) {
 
     const newDeckId = await this.service.createNewDeck();
     assert.equal(newDeckId, 'TEST-DECK-ID', 'returns the correct deck ID');
+  });
+
+  test('it can throw errors when creating a new deck fails', async function(assert) {
+    this.server.get('https://deckofcardsapi.com/api/deck/new/shuffle/', () => ({ success: false }));
+
+    sinon.stub(this.service, 'alert');
+
+    await this.service.createNewDeck();
+
+    assert.equal(this.service.alert.firstCall.args[0], 'Unable to create new deck');
   });
 
   test('it can correctly draw cards', async function(assert) {
@@ -46,5 +57,15 @@ module('Unit | Service | cards-api', function(hooks) {
     const cards = await this.service.drawCards('FAKE-DECK-ID', 17);
     assert.equal(cards.length, 2, 'returns every card');
     assert.ok(cards[0] instanceof Card, 'converts api data into Card models');
+  });
+
+  test('it can throw errors when drawing a new card fails', async function(assert) {
+    this.server.get('https://deckofcardsapi.com/api/deck/:deckId/draw/', () => ({ success: false }));
+
+    sinon.stub(this.service, 'alert');
+
+    await this.service.drawCards();
+
+    assert.equal(this.service.alert.firstCall.args[0], 'Unable to draw cards');
   });
 });
